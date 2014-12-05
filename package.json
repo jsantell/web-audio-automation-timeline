@@ -1,0 +1,23 @@
+{
+  "name": "web-audio-automation-calculator",
+  "version": "1.0.0",
+  "description": "Calculate automation values for the web audio API",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --reporter spec --ui bdd"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jsantell/web-audio-automation-calculator.git"
+  },
+  "author": "Jordan Santell",
+  "license": "MPL 2.0",
+  "bugs": {
+    "url": "https://github.com/jsantell/web-audio-automation-calculator/issues"
+  },
+  "homepage": "https://github.com/jsantell/web-audio-automation-calculator",
+  "devDependencies": {
+    "mocha": "^2.0.1",
+    "chai": "^1.10.0"
+  }
+}

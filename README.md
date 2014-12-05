@@ -1,5 +1,9 @@
 # web-audio-automation-timeline
 
+[![Build Status](http://img.shields.io/travis/jsantell/web-audio-automation-timeline.svg?style=flat-square)](https://travis-ci.org/jsantell/web-audio-automation-timeline)
+[![Build Status](http://img.shields.io/npm/v/web-audio-automation-timeline.svg?style=flat-square)](https://www.npmjs.org/package/web-audio-automation-timeline)
+
+
 Timeline utility for calculating values of web audio automation parameters over time.
 
 ## Installation

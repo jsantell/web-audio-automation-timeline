@@ -1,6 +1,6 @@
 {
   "name": "web-audio-automation-timeline",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Calculate automation values for the web audio API",
   "main": "index.js",
   "scripts": {

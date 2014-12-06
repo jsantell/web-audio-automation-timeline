@@ -18,6 +18,9 @@
   "homepage": "https://github.com/jsantell/web-audio-automation-timeline",
   "devDependencies": {
     "mocha": "^2.0.1",
-    "chai": "^1.10.0"
+    "chai": "^1.10.0",
+    "gulp": "^3.8.10",
+    "gulp-browserify-thin": "^0.1.5",
+    "gulp-header": "^1.2.2"
   }
 }

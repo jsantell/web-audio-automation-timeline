@@ -10,6 +10,11 @@ Timeline utility for calculating values of web audio automation parameters over 
 
 `$ npm install web-audio-automation-timeline`
 
+## Build
+
+You can build a browserified version via `gulp`, created in the `./build` directory, or
+just use this in a script tag. You can view an example page that renders automation values in a d3 graph in `./example/index.html`.
+
 ## API
 
 ### new Timeline(defaultValue)

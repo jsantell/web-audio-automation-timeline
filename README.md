@@ -4,7 +4,7 @@
 [![Build Status](http://img.shields.io/npm/v/web-audio-automation-timeline.svg?style=flat-square)](https://www.npmjs.org/package/web-audio-automation-timeline)
 
 
-Timeline utility for calculating values of web audio automation parameters over time.
+Timeline utility for calculating values of web audio automation parameters over time. Based off of Firefox's [AudioEventTimeline](https://github.com/mozilla/gecko-dev/blob/master/dom/media/webaudio/AudioEventTimeline.h) implementation for the Web Audio API.
 
 ## Installation
 

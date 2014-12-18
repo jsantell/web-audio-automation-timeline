@@ -1,5 +1,5 @@
 /**
- * web-audio-automation-timeline - 1.0.1
+ * web-audio-automation-timeline - 1.0.2
  * https://github.com/jsantell/web-audio-automation-timeline
  * MIT License, copyright (c) 2014 Jordan Santell
  */
@@ -63,7 +63,7 @@ exports.exponentialApproach = function (t0, v0, v1, timeConstant, t) {
 };
 
 // Since we are going to accumulate error by adding 0.01 multiple times
-// in a loop, we want to fuzz teh equality check in `getValueAtTime`
+// in a loop, we want to fuzz the equality check in `getValueAtTime`
 exports.fuzzyEqual = function (lhs, rhs) {
   return Math.abs(lhs - rhs) < EPSILON;
 };
@@ -272,7 +272,7 @@ Timeline.prototype._insertEvent = function (ev) {
         // If times and types are equal, replace the event;
         events[i] = ev;
       } else {
-        // Otherwise, place the elemetn after the last event of another type
+        // Otherwise, place the element after the last event of another type
         do { i++; }
         while (i < events.length && ev.type !== events[i].type && ev.time === events[i].time);
         events.splice(i, 0, ev);

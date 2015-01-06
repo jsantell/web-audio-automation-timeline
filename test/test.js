@@ -114,14 +114,6 @@ describe("After Last Event", function () {
     timeline.setValue(50);
     timeline.setTargetAtTime(20, 1, 5);
 
-    // When using SetTargetValueAtTime, Timeline becomes stateful: the value for
-    // time t may depend on the time t-1, so we can't just query the value at a
-    // time and get the right value. We have to call GetValueAtTime for the
-    // previous times.
-    for (var i = 0; i < 9.99; i+= 0.01) {
-      timeline.getValueAtTime(i);
-    }
-
     expect(timeline.getValueAtTime(10)).to.be.equal(20 + (50-20) * (Math.exp(-9/5)));
   });
 });
@@ -197,4 +189,59 @@ it("exponential invalid previous zero value", function () {
   expect(timeline.getEventCount()).to.be.equal(0);
 
   timeline.exponentialRampToValueAtTime(1, 1);
+});
+
+it("setTargetAtTime works on subsequent calls, deterministic", function () {
+  var timeline = new Timeline(10);
+  timeline.setValueAtTime(500, 1);
+  timeline.setTargetAtTime(1000, 2, 0.5);
+
+  // v(t) = V1 + (V0 - V1) * exp(-(t - T0) / timeConstant)
+  expect(timeline.getValueAtTime(1)).to.be.equal(500);
+  expect(timeline.getValueAtTime(3)).to.be.closeTo(932.3323583, EPSILON);
+  expect(timeline.getValueAtTime(10)).to.be.closeTo(999.999943732, EPSILON);
+  expect(timeline.getValueAtTime(1)).to.be.equal(500);
+  expect(timeline.getValueAtTime(3)).to.be.closeTo(932.3323583, EPSILON);
+  expect(timeline.getValueAtTime(1)).to.be.equal(500);
+  expect(timeline.getValueAtTime(10)).to.be.closeTo(999.999943732, EPSILON);
+  expect(timeline.getValueAtTime(10)).to.be.closeTo(999.999943732, EPSILON);
+  expect(timeline.getValueAtTime(3)).to.be.closeTo(932.3323583, EPSILON);
+  expect(timeline.getValueAtTime(10)).to.be.closeTo(999.999943732, EPSILON);
+});
+
+it("setTargetAtTime works when first and last event, subsequent calls, deterministic", function () {
+  var timeline = new Timeline(10);
+  timeline.setTargetAtTime(1000, 2, 0.5);
+
+  // v(t) = V1 + (V0 - V1) * exp(-(t - T0) / timeConstant)
+  expect(timeline.getValueAtTime(2)).to.be.equal(10);
+  expect(timeline.getValueAtTime(4)).to.be.closeTo(981.8675175, EPSILON);
+  expect(timeline.getValueAtTime(4.95)).to.be.closeTo(997.2879496, EPSILON);
+
+  expect(timeline.getValueAtTime(4)).to.be.closeTo(981.8675175, EPSILON);
+  expect(timeline.getValueAtTime(4.95)).to.be.closeTo(997.2879496, EPSILON);
+  expect(timeline.getValueAtTime(2)).to.be.equal(10);
+  expect(timeline.getValueAtTime(2)).to.be.equal(10);
+  expect(timeline.getValueAtTime(2)).to.be.equal(10);
+  expect(timeline.getValueAtTime(4.95)).to.be.closeTo(997.2879496, EPSILON);
+});
+
+it("setTargetAtTime works when followed by another setTargetAtTime, subsequent calls, deterministic", function () {
+  var timeline = new Timeline(10);
+  timeline.setTargetAtTime(1000, 2, 0.5);
+  timeline.setTargetAtTime(2000, 5, 1);
+
+  // v(t) = V1 + (V0 - V1) * exp(-(t - T0) / timeConstant)
+  expect(timeline.getValueAtTime(2)).to.be.equal(10);
+  expect(timeline.getValueAtTime(4)).to.be.closeTo(981.8675175, EPSILON);
+  expect(timeline.getValueAtTime(4.95)).to.be.closeTo(997.2879496, EPSILON);
+  expect(timeline.getValueAtTime(10)).to.be.closeTo(1993.2620530, EPSILON);
+
+  expect(timeline.getValueAtTime(4)).to.be.closeTo(981.8675175, EPSILON);
+  expect(timeline.getValueAtTime(4.95)).to.be.closeTo(997.2879496, EPSILON);
+  expect(timeline.getValueAtTime(2)).to.be.equal(10);
+  expect(timeline.getValueAtTime(10)).to.be.closeTo(1993.2620530, EPSILON);
+  expect(timeline.getValueAtTime(2)).to.be.equal(10);
+  expect(timeline.getValueAtTime(2)).to.be.equal(10);
+  expect(timeline.getValueAtTime(10)).to.be.closeTo(1993.2620530, EPSILON);
 });
